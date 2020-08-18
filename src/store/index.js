@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-new Vuex.Store({
+export default new Vuex.Store({
   state: { // equivalent to data
     products: []
   },
@@ -17,12 +17,14 @@ new Vuex.Store({
   actions: { // equivalent to methods
     fetchProducts () {
       // make call
+      // run setProducts mutation
     }
   },
 
-  mutations: { // new - no equivalent 
-    setProducts () {
+  mutations: { // new - no equivalent
+    setProducts (state, products) {
       // update products
+      state.products = products
     }
   }
 })

@@ -1,0 +1,5 @@
+Mutations are responsible for single state changes
+  - ie. update products array in our store
+  - setProducts (state, products) {
+      state.products = products
+  }
