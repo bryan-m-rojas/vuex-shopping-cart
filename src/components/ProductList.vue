@@ -20,32 +20,49 @@
 </template>
 
 <script>
+  import {mapState, mapGetters, mapActions} from 'vuex'
   export default {
     data () {
       return {
-        loading: false
+        loading: false,
+        productIndex: 1
       }
     },
 
     computed: {
-      products () {
-        return this.$store.state.products
-      },
+      ...mapState({
+        products: state => state.products
+      }),
 
-      productIsInStock () {
-        return this.$store.getters.productIsInStock
-      }
+      ...mapGetters({
+        productIsInStock: 'productIsInStock'
+      })
     },
 
+    // computed: {
+    //   products () {
+    //     return this.$store.state.products
+    //   },
+
+    //   productIsInStock () {
+    //     return this.$store.getters.productIsInStock
+    //   }
+    // },
+
     methods: {
-      addProductToCart (product) {
-        this.$store.dispatch('addProductToCart', product)
-      }
+      ...mapActions({
+        fetchProducts: 'fetchProducts',
+        addProductToCart: 'addProductToCart'
+      })
+
+      // addProductToCart (product) {
+      //   this.$store.dispatch('addProductToCart', product)
+      // }
     },
 
     created () {
       this.loading = true
-      this.$store.dispatch('fetchProducts')
+      this.fetchProducts()
         .then(() => { this.loading = false })
     }
   }
